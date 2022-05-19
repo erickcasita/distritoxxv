@@ -1,0 +1,446 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Perfil</h1>
+      </div><!-- /.col -->
+
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+          <div class="card-body box-profile">
+            <div class="text-center">
+              {{#each card1}}
+              <img class="profile-user-img img-fluid img-circle" src="{{{'pathfoto'}}}" alt="User profile picture">
+              {{/each}}
+
+            </div>
+            {{#each card1}}
+            <h3 class="profile-username text-center">{{'nombre'}} {{'apellidop'}}</h3>
+            {{/each}}
+
+
+            <p class="text-muted text-center">Miembro Activo</p>
+
+            <ul class="list-group list-group-unbordered mb-3">
+              <li class="list-group-item">
+                {{#each card1}}
+                <b>ID:</b> <a class="float-right">{{'clvpersona'}}</a>
+                {{/each }}
+
+              </li>
+              <li class="list-group-item">
+                {{#each cargo}}
+                <b>CARGO:</b> <a class="float-right">{{'nombrecargo'}}</a>
+                {{/each }}
+
+              </li>
+              <li class="list-group-item">
+                {{#each totalpersonas}}
+                <b>TOTAL PERSONAS:</b> <a class="float-right">{{'total_personas'}}
+                </a>
+                {{/each }}
+              </li>
+            </ul>
+
+            <a href="#" class="btn btn-primary btn-block"><b>Nueva Nota</b></a>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+        <!-- About Me Box -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Acerca de</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <strong><i class="fa fa-user mr-1"></i> NOMBRE COMPLETO</strong>
+
+            {{#each card1}}
+            <p class="text-muted">{{'nombre'}} {{'apellidop'}} {{'apellidom'}}</p>
+
+            {{/each }}
+
+            <hr>
+            <strong><i class="fa fa-user mr-1"></i> NÚMERO DE TELÉFONO</strong>
+
+            {{#each card1}}
+            <p class="text-muted">{{'numtel'}}</p>
+
+            {{/each }}
+
+            <hr>
+
+            <strong><i class="fa fa-map-marker mr-1"></i> MUNICIPIO</strong>
+            {{#each card2}}
+            <p class="text-muted">{{'nombremunicipio'}},VERACRUZ</p>
+
+            {{/each }}
+
+
+            <hr>
+
+            <strong><i class="fa fa-location-arrow mr-1"></i> SECCIÓN ELECTORAL</strong>
+            {{#each card1}}
+            <p class="text-muted">{{'seccelectoral'}}</p>
+
+            {{/each }}
+
+
+            <hr>
+            <strong><i class="fa fa-location-arrow mr-1"></i>DOMICILIO</strong>
+            {{#each card1}}
+            <p class="text-muted">{{'direccion'}} COLONIA:
+
+
+
+              {{/each }}
+              {{#each card2}}
+              {{'nombrecolonias'}}
+              {{/each}} CÓDIGO POSTAL: {{#each card1}}
+              {{'cdgpostal'}}
+              {{/each}}</p>
+
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header p-2">
+            <ul class="nav nav-pills">
+              <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Historial de Apoyo</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#notas" data-toggle="tab">Notas de Perfil</a></li>
+              <li class="nav-item"><a class="nav-link" href="#editar" data-toggle="tab">Editar Perfil</a></li>
+            </ul>
+          </div><!-- /.card-header -->
+          <div class="card-body">
+            <div class="tab-content">
+
+              <!-- /.tab-pane -->
+              <div class="active tab-pane" id="timeline">
+                <!-- The timeline -->
+                <ul class="timeline timeline-inverse">
+                  <!-- timeline time label -->
+                  <li class="time-label">
+                    <span class="bg-danger">
+                      10 Feb. 2014
+                    </span>
+                  </li>
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-pencil bg-primary"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                      <h3 class="timeline-header">Título Apoyo</h3>
+
+                      <div class="timeline-body">
+                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                        quora plaxo ideeli hulu weebly balihoo...
+                      </div>
+                    </div>
+                  </li>
+                  <!-- END timeline item -->
+                  <!-- timeline item -->
+
+                  <!-- END timeline item -->
+                  <!-- timeline item -->
+                  <li>
+                    <i class="fa fa-camera bg-warning"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                      <h3 class="timeline-header">Fotografías</h3>
+
+                      <div class="timeline-body">
+                        <div class="row mb-3">
+                          <div class="col-sm-6">
+                            <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                          </div>
+                          <!-- /.col -->
+                          <div class="col-sm-6">
+                            <div class="row">
+                              <div class="col-sm-6">
+                                <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
+                                <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
+                              </div>
+                              <!-- /.col -->
+                              <div class="col-sm-6">
+                                <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
+                                <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                              </div>
+                              <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                          </div>
+                          <!-- /.col -->
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <i class="fa fa-comments bg-primary"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                      <h3 class="timeline-header">Comentario</h3>
+
+                      <div class="timeline-body">
+                        <span class="description">Este es el primer apoyo</span>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- END timeline item -->
+                  <!-- timeline time label -->
+
+                  <!-- /.timeline-label -->
+                  <!-- timeline item -->
+
+                  <!-- END timeline item -->
+                  <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
+                  </li>
+                </ul>
+              </div>
+
+
+
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="notas">
+                <!-- Post -->
+                <div class="post">
+                  <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="/dist/img/profiledip.png" alt="user image">
+                    <span class="username">
+                      <a href="#">Dip. Rafael Gustavo Fararoni Magaña</a>
+
+                    </span>
+                    <span class="description">Shared publicly - 7:30 PM today</span>
+                  </div>
+                  <!-- /.user-block -->
+                  <p>
+                    Lorem ipsum represents a long-held tradition for designers,
+                    typographers and the like. Some people hate it and argue for
+                    its demise, but others ignore the hate as they create awesome
+                    tools to help create filler text for everyone from bacon lovers
+                    to Charlie Sheen fans.
+                  </p>
+
+
+                </div>
+                <!-- /.post -->
+              </div>
+
+
+              <div class="tab-pane" id="editar">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h3 class="card-title">Editar Ciudadano</h3>
+                      </div>
+                      <form role="form" action="/dashboard/neweditpeople" method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+
+                          <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+
+                                <label for="id">ID:</label>
+                                {{#each formdatos1}}
+
+                                <input type="text" class="form-control" id="clvpersona" name="clvpersona" placeholder=""
+                                  value="{{'clvpersona'}}">
+                                {{/each }}
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="nombre">Nombre(s):</label>
+                                {{#each formdatos1}}
+                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                  placeholder="Ingrese Nombre(s)" value="{{'nombre'}}">
+                                {{/each }}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="apellidop">Apellido Paterno:</label>
+                                {{#each formdatos1}}
+                                <input type="text" class="form-control" id="apellidop" name="apellidop"
+                                  placeholder="Ingrese Apellido Paterno" value="{{'apellidop'}}">
+                                {{/each }}
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="apellidom">Apellido Materno:</label>
+                                {{#each formdatos1}}
+                                <input type="text" class="form-control" id="apellidom" name="apellidom"
+                                  placeholder="Ingrese Apellido Materno" value="{{'apellidom'}}">
+                                {{/each }}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="cargo">Cargo:</label>
+
+                                <select name="cargo" class="form-control form-select" id="cargo">
+
+                                  {{#each cargo}}
+                                  <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
+                                  {{/each}}
+                                
+                                  {{#each listacargos}}
+                                  <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
+                                  {{/each}}
+                                </select>
+
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="municipio">Municipio:</label>
+                                <select name="municipio" class="form-control form-select" id="municipios">
+
+                                  {{#each card2}}
+                                  <option value={{'clvmunicipio'}}>{{'nombremunicipio'}}</option>
+                                  {{/each}}
+
+                                  {{#each listamunicipios}}
+                                  <option value={{'clvmunicipio'}}>{{'nombremunicipio'}}</option>
+                                  {{/each}}
+                                </select>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="colonia">Colonia:</label>
+                                <select name="colonia" class="form-control form-select" id="colonia">
+                                  {{#each card2}}
+                                  <option value={{'clvcolonias'}}>{{'nombrecolonias'}}</option>
+                                  {{/each}}
+
+                                  {{#each listacolonia}}
+                                  <option value={{'clvcolonias'}}>{{'nombrecolonias'}}</option>
+                                  {{/each}}
+                                </select>
+
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="cdgpostal">Código Postal:</label>
+                                <select name="codigopostal" class="form-control form-select" id="cdgpostal">
+                                  {{#each card1}}
+                                  <option value={{'cdgpostal'}}>{{'cdgpostal'}}</option>
+                                  {{/each}}
+                                  {{#each listacolonia}}
+                                  <option value={{'cdgpostal'}}>{{'cdgpostal'}}</option>
+                                  {{/each}}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="seccelectoral">Sección Electoral:</label>
+                                {{#each card1}}
+                                <input type="number" class="form-control" id="seccelectoral" name="seccelectoral"
+                                  placeholder="Ingrese Sección Electoral" value="{{'seccelectoral'}}">
+                                {{/each}}
+                              </div>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                              <div class="form-group">
+                                <label for="numtel">Número de Teléfono:</label>
+                                {{#each formdatos1}}
+
+                                <input type="number" class="form-control" id="numtel" name="numtel"
+                                  placeholder="Ingrese Número de Teléfono" value="{{'numtel'}}">
+                                {{/each }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="grupo">Coordinador o Rutero:</label>
+                            <select name="grupo" class="form-control form-select" id="grupo" name="grupo">
+                                {{#each cordis}}
+                                    <option value={{'clvpersona'}}>{{'nombre'}} {{'apellidop'}} {{'apellidom'}} --- CARGO: {{'nombrecargo'}} --- MUNICIPIO: {{'nombremunicipio'}} --- COLONIA: {{'nombrecolonias'}} --- SECCION ELECTORAL: {{'seccelectoral'}}</option>
+                                {{/each }}
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="direccion">Domicilio:</label>
+                            {{#each formdatos1}}
+                            <input type="text" class="form-control" id="direccion" placeholder="Ingrese Domicilio"
+                              name="direccion" value="{{'direccion'}}">
+                            {{/each }}
+                          </div>
+
+                          <div class="form-group">
+                            <label for="credencial">Identificación Oficial:</label>
+                            <input type="file" class="form-control-file" id="" name="credencial">
+                          </div>
+                          <div class="form-group">
+                            <label for="foto">Fotografía:</label>
+                            <input type="file" class="form-control-file" id="" name="foto">
+                          </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                          <button type="submit" class="btn btn-primary" id="update">Editar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div><!-- /.card-body -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div><!-- /.container-fluid -->
+
+</section>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/js/validateedituser.js"></script>
+<script src="/js/editpeople.js"></script>
+<script src="/js/upperaddpeople.js"></script>

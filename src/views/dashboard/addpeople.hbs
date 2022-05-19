@@ -1,0 +1,135 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Registro de Personas</h1>
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Alta</h3>
+                    </div>
+                    <form role="form" action="/dashboard/newaddpeople" method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="nombre">Nombre(s):</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre(s)">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidop">Apellido Paterno:</label>
+                                <input type="text" class="form-control" id="apellidop" name="apellidop"
+                                    placeholder="Ingrese Apellido Paterno">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidom">Apellido Materno:</label>
+                                <input type="text" class="form-control" id="apellidom" name="apellidom"
+                                    placeholder="Ingrese Apellido Materno">
+                            </div>
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="cargo">Cargo:</label>
+                                       
+                                        <select  name="cargo" class="form-control form-select" id="cargo">
+                                            <option value=" "> </option>
+                                            {{#each cargos}}
+                                            <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
+                                            {{/each}} 
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="municipio">Municipio:</label>
+                                        <select name="municipio"class="form-control form-select" id="municipios">
+                                          <option value=" "> </option>
+                                         {{#each municipios}}
+                                            <option value={{'clvmunicipio'}}>{{'nombremunicipio'}}</option>
+                                            {{/each}} 
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="colonia">Colonia:</label>
+                                        <select name="colonia"class="form-control form-select" id="colonia">
+                                           
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="cdgpostal">Código Postal:</label>
+                                        <select name="codigopostal" class="form-control form-select" id="cdgpostal">
+                                           
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="seccelectoral">Sección Electoral:</label>
+                                        <input type="number" class="form-control" id="seccelectoral" name="seccelectoral"
+                                            placeholder="Ingrese Sección Electoral">
+
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="form-group">
+                                        <label for="numtel">Número de Teléfono:</label>
+                                        <input type="number" class="form-control" id="numtel" name="numtel"
+                                            placeholder="Ingrese Número de Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="grupo">Coordinador o Rutero:</label>
+                                        <select name="grupo" class="form-control form-select" id="grupo" >
+                                           <option value=" "> </option>
+                                        </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="direccion">Domicilio:</label>
+                                <input type="text" class="form-control" id="direccion" placeholder="Ingrese Domicilio" name="direccion">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="credencial">Identificación Oficial:</label>
+                                <input type="file" class="form-control-file" id="" name="credencial">
+                            </div>
+                              <div class="form-group">
+                                <label for="foto">Fotografía:</label>
+                                <input type="file" class="form-control-file" id="" name="foto">
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" id="agregar">Registrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+ <!-- Script para cambiar de municipios colonias  -->
+
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/js/street.js"></script>
+<script src="/js/validateadduser.js"></script>
+<script src="/js/upperaddpeople.js"></script>
