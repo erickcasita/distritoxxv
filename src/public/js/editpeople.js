@@ -1,6 +1,5 @@
 $(document).ready(function() {
     $('#clvpersona').prop("disabled",true); 
-    console.log($('#clvpersona').val());
     $(document).on("change", "#cargo", function(){
         let optionSelected = $("option:selected", this);
         let valueSelected = optionSelected.val();

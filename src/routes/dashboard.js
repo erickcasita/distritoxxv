@@ -37,7 +37,7 @@ router.post('/validatemunicipios', isLoggedIn, async (req, res) => {
 router.post('/validatecargos', isLoggedIn, async (req, res) => {
     const { clvmunicipio } = req.body;
     console.log(clvmunicipio);
-    const cargos = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, cargos.nombrecargo, municipios.nombremunicipio, afiliaciones.seccelectoral, colonias.nombrecolonias FROM afiliaciones INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias WHERE (afiliaciones.clvcargos = 2 OR afiliaciones.clvcargos = 3 )  AND afiliaciones.clvmunicipio = ? ORDER BY afiliaciones.clvpersona', [clvmunicipio]);
+    const cargos = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, cargos.nombrecargo, municipios.nombremunicipio, afiliaciones.seccelectoral, colonias.nombrecolonias FROM afiliaciones INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias WHERE (afiliaciones.clvcargos != 1)  AND afiliaciones.clvmunicipio = ? ORDER BY afiliaciones.clvpersona', [clvmunicipio]);
     let tmpcargos = [];
     cargos.forEach(element => {
         var fila = new Array();
@@ -164,7 +164,7 @@ router.get('/showprofile/:clvpersona', isLoggedIn, async (req, res) => {
     let idcargo = "";
     let idmunicipio = "";
     let idcolonia = "";
-    const card1 = await pool.query('SELECT clvpersona, nombre, apellidop,apellidom,seccelectoral,direccion,numtel,pathfoto,cdgpostal FROM afiliaciones WHERE clvpersona = ?', [clvpersona]);
+    const card1 = await pool.query('SELECT clvpersona, nombre, apellidop,apellidom,seccelectoral,direccion,numtel,pathfoto,pathcredencial,cdgpostal FROM afiliaciones WHERE clvpersona = ?', [clvpersona]);
     const card2 = await pool.query('SELECT  municipios.clvmunicipio,municipios.nombremunicipio,colonias.clvcolonias,colonias.nombrecolonias FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias on afiliaciones.clvcolonias = colonias.clvcolonias WHERE clvpersona = ?', [clvpersona]);
     const cargo = await pool.query('SELECT cargos.clvcargos,cargos.nombrecargo from afiliaciones INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos WHERE clvpersona = ?', [clvpersona]);
     const totalpersonas = await pool.query('SELECT COUNT(*) AS total_personas FROM afiliaciones WHERE cdgagrupador = ?', [clvpersona]);

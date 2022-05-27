@@ -71,7 +71,7 @@
             {{/each }}
 
             <hr>
-            <strong><i class="fa fa-user mr-1"></i> NÚMERO DE TELÉFONO</strong>
+            <strong><i class="fa fa-phone mr-1"></i> NÚMERO DE TELÉFONO</strong>
 
             {{#each card1}}
             <p class="text-muted">{{'numtel'}}</p>
@@ -97,11 +97,9 @@
 
 
             <hr>
-            <strong><i class="fa fa-location-arrow mr-1"></i>DOMICILIO</strong>
+            <strong><i class="fa fa-home mr-1"></i>DOMICILIO</strong>
             {{#each card1}}
             <p class="text-muted">{{'direccion'}} COLONIA:
-
-
 
               {{/each }}
               {{#each card2}}
@@ -109,7 +107,11 @@
               {{/each}} CÓDIGO POSTAL: {{#each card1}}
               {{'cdgpostal'}}
               {{/each}}</p>
-
+             <hr>
+             <strong><i class="fa fa fa-file mr-1"></i><a  Target="_blank" href="{{#each card1 }}
+              {{'pathcredencial'}}
+              {{/each }}
+             ">IDENTIFICACIÓN OFICIAL</a></strong>  
           </div>
           <!-- /.card-body -->
         </div>
