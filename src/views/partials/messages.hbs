@@ -30,3 +30,13 @@
     </div>
 </div>
 {{/if}}
+
+{{#if showreportmanage}}
+<div class="card-body">
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon fa fa-check"></i> Éxito!</h5>
+        {{showreportmanage}} <a href="/dashboard/downloadreportmanage" >¿Desea descargar el reporte?</a>
+    </div>
+</div>
+{{/if}}

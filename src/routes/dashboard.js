@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require("../database");
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth');
+const path = require('path');
+const xl = require('excel4node');
+
 router.get('/', isLoggedIn, (req, res) => {
     res.render('dashboard/index');
 });
@@ -158,6 +161,156 @@ router.post('/neweditpeople', isLoggedIn, async (req, res) => {
 router.get('/searchpeople', isLoggedIn, async (req, res) => {
     const search = await pool.query('select afiliaciones.clvpersona,afiliaciones.nombre,afiliaciones.apellidop,afiliaciones.apellidom,municipios.nombremunicipio,cargos.nombrecargo, seccelectoral from afiliaciones INNER JOIN municipios on afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN cargos on afiliaciones.clvcargos = cargos.clvcargos');
     res.render('dashboard/searchpeople', { search });
+});
+router.get('/reportmanage', isLoggedIn, async (req, res) => {
+
+    const cargos = await pool.query('select * from cargos WHERE clvcargos != 1 ');
+    const municipios = await pool.query('select * from municipios');
+    res.render('dashboard/reportmanage', { cargos, municipios });
+});
+
+router.post('/newreportmanage', isLoggedIn, async (req, res) => {
+    let { cargo, municipio, colonia } = req.body;
+    if (colonia === undefined) {
+        colonia = "0";
+    }
+    console.log(cargo, municipio, colonia);
+    let q;
+    let datos = []
+    let contador1, contador2
+    contador2 = 4;
+    contador1 = 1;
+
+    let user = req.user.username;
+    var f = new Date();
+    var mes = f.getMonth() + 1;
+    var fecha = f.getDate() + "-" + mes + "-" + f.getFullYear();
+    var hora_actual = f.getHours() + ":" + f.getMinutes() + ":" + f.getSeconds();
+
+
+    if (colonia === "0" && municipio != "0" && cargo != "0") {
+
+        q = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, afiliaciones.cdgpostal, afiliaciones.seccelectoral, afiliaciones.numtel, afiliaciones.direccion, cargos.nombrecargo FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos WHERE afiliaciones.clvcargos = ? AND afiliaciones.clvmunicipio = ?', [cargo, municipio]);
+
+
+
+    }
+    if (colonia != "0" && municipio != "0" && cargo != "0") {
+        q = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, afiliaciones.cdgpostal, afiliaciones.seccelectoral, afiliaciones.numtel, afiliaciones.direccion, cargos.nombrecargo FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos WHERE afiliaciones.clvcargos = ? AND afiliaciones.clvmunicipio = ? AND afiliaciones.clvcolonias = ?', [cargo, municipio, colonia]);
+    }
+
+    if (municipio === "0" && colonia === "0" && cargo != "0") {
+        q = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, afiliaciones.cdgpostal, afiliaciones.seccelectoral, afiliaciones.numtel, afiliaciones.direccion, cargos.nombrecargo FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos WHERE afiliaciones.clvcargos = ? ', [cargo]);
+    }
+
+    if (municipio === "0" && colonia === "0" && cargo === "0") {
+        q = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, afiliaciones.cdgpostal, afiliaciones.seccelectoral, afiliaciones.numtel, afiliaciones.direccion, cargos.nombrecargo FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos ;');
+    }
+    //const q = await pool.query('SELECT afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, afiliaciones.cdgpostal, afiliaciones.seccelectoral, afiliaciones.direccion, cargos.nombrecargo FROM afiliaciones INNER JOIN municipios ON afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON afiliaciones.clvcolonias = colonias.clvcolonias INNER JOIN cargos ON afiliaciones.clvcargos = cargos.clvcargos WHERE afiliaciones.clvcargos = ? AND afiliaciones.clvmunicipio = ? AND afiliaciones.clvcolonias = ?',[cargo,municipio, colonia]);
+
+
+
+    //Libro de Trabajo
+    var wb = new xl.Workbook();
+    //Hoja de Trabajo
+    var ws = wb.addWorksheet('Reporte');
+    ws.cell(1, 1).string("RAFAEL GUSTAVO FARARONI MAGAÑA DIP. DISTRITO XXV");
+    ws.cell(1, 10).string("Usuario:");
+    ws.cell(1, 11).string(user);
+
+    ws.cell(2, 1).string("REPORTE DE COORDINADORES / RUTERO / AGENTES(SUBS) MUNICIPALES");
+    ws.cell(2, 10).string("Fecha y Hora:");
+    ws.cell(2, 11).string(fecha + " " + hora_actual);
+    ws.cell(3, 1).string("ID");
+    ws.cell(3, 2).string("NOMBRE");
+    ws.cell(3, 3).string("APELLIDO PATERNO");
+    ws.cell(3, 4).string("APELLIDO MATERNO");
+    ws.cell(3, 5).string("MUNICIPIO");
+    ws.cell(3, 6).string("COLONIA");
+    ws.cell(3, 7).string("CODIGO POSTAL");
+    ws.cell(3, 8).string("SECCION ELECTORAL");
+    ws.cell(3, 9).string("TELEFONO");
+    ws.cell(3, 10).string("DIRECCION");
+    ws.cell(3, 11).string("TIPO CARGO");
+    const pathExcel = path.join('src/public/reportes/', 'excel', 'reporte.xlsx');
+    var fila = new Array();
+    q.forEach(element => {
+
+        fila.push(element['clvpersona']);
+        fila.push(element['nombre']);
+        fila.push(element['apellidop']);
+        fila.push(element['apellidom']);
+        fila.push(element['nombremunicipio']);
+        fila.push(element['nombrecolonias']);
+        fila.push(element['cdgpostal']);
+        fila.push(element['seccelectoral']);
+        fila.push(element['numtel']);
+        fila.push(element['direccion']);
+
+
+        fila.push(element['nombrecargo']);
+
+
+    });
+
+
+
+
+    for (let index = 0; index < fila.length; index++) {
+        const element = fila[index];
+
+        var cad = element.toString();
+
+
+
+        ws.cell(contador2, contador1).string(cad);
+        contador1++;
+        if (contador1 == 12) {
+            contador2++;
+            contador1 = 1;
+        }
+
+
+    }
+
+
+    wb.write(pathExcel);
+    req.flash('showreportmanage', '¡El reporte se ha generado correctamente!');
+    res.redirect('/dashboard/reportmanage/');
+
+    // wb.write(pathExcel, function(err,stats){
+    //     if(err){
+    //         console.error(err);
+    //     }else{
+    //         function downloadFIle(){
+    //             res.download(pathExcel);
+    //         }
+    //         downloadFIle();
+    //         return false;
+
+    //     }
+    // });
+
+});
+
+router.get('/downloadreportmanage', function (req, res) {
+
+    const file = 'src/public/reportes/excel/reporte.xlsx';
+    var filename = path.basename(file);
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+    res.download(file, 'reporte.xlsx', function (err) {
+        console.log('download callback called');
+        if (err) {
+            console.log('something went wrong');
+        }
+
+    });
+
+
+
+
 });
 router.get('/showprofile/:clvpersona', isLoggedIn, async (req, res) => {
     let clvpersona = req.params.clvpersona;
