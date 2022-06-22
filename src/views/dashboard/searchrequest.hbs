@@ -1,0 +1,158 @@
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Administración de Solicitudes</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/dashboard/">Inicio</a></li>
+          <li class="breadcrumb-item active">Solicitudes</li>
+        </ol>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-12">
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Catálogo</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-striped table-bordered dataTable display">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>SOLICITUD</th>
+                <th>ID CIUDADANO</th>
+                <th>NOMBRE COMPLETO</th>
+                <th>MUNICIPIO</th>
+                <th>FECHA</th>
+                <th>ESTADO</th>
+                <th></th>
+                <th></th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {{#each soli}}
+              <tr>
+                <td id="idcliente">{{'clvsolicitud'}}</td>
+                 <td id="idcliente">{{'qsolicita'}}</td>
+                <td id="idcliente">{{'clvpersona'}}</td>
+                <td>{{'nombre'}} {{'apellidop'}} {{'apellidom'}}</td>
+                <td>{{'nombremunicipio'}}</td>
+                <td>{{'fechasoli'}}</td>
+                <td><span class="badge badge-primary">Pendiente</span></td>
+                <td align="center"><a Target="_blank" href="{{'pathsoli'}}" class="">
+                    <i class="search fa fa-file-pdf-o"></i>
+                  </a></td>
+                <td aling="center"><button type="button" class="btn btn-outline-danger btncancelarrequest" >Cancelar</button></td>
+                <td aling="center"><button type="button" class="btn btn-outline-success btnrealizarrrequest" id="realirequest" data-toggle="modal" data-target="#exampleModal">Realizar</button></td>
+                
+              {{/each}}
+
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- DataTables -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Realizar Solicitud</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" action="/dashboard/newrealirequest" method="post" enctype="multipart/form-data">
+
+          <div class="row g-2">
+               <div class="mb-3 col-md-6">
+              <div class="form-group">
+                <label for="idpersona" class="col-form-label">ID SOLICITUD:</label>
+                <input type="text" class="form-control" id="idrequest" name="idrequest">
+
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="form-group">
+                <label for="idpersona" class="col-form-label">ID CIUDADANO:</label>
+                <input type="text" class="form-control" id="idpersona" name="idpersona">
+
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="form-group">
+            <label for="nombre" class="col-form-label">NOMBRE COMPLETO:</label>
+            <input type="text" class="form-control" id="nombre">
+          </div>
+          <div class="form-group">
+            <label for="tituloapoyo" class="col-form-label">TITULO DE APOYO:</label>
+            <input type="text" class="form-control" id="tituloapoyo" name="tituloapoyo">
+          </div>
+           <div class="form-group">
+            <label for="descripcionapoyo" class="col-form-label">DESCRIPCIÓN:</label>
+            <textarea class="form-control" id="descripcionapoyo" rows="3" name="descripcionapoyo"></textarea>
+            
+          </div>
+            <div class="form-group">
+            <label for="comentarioapoyo" class="col-form-label">COMENTARIO DIPUTADO:</label>
+            <input type="text" class="form-control" id="comentarioapoyo" name="comentarioapoyo">
+          </div>
+           <div class="form-group">
+            <label for="fechaapoyo" class="col-form-label">FECHA APOYO:</label>
+            <input type="date" class="form-control" id="fecharealiapoyo" name="fecharealiapoyo">
+          </div>
+          <div class="form-group">
+            <label for="foto" class="col-form-label">FOTOGRAFÍA:</label>
+            <input type="file" class="form-control-file" id="foto" name="foto">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" id="genrequest"  class="btn btn-primary">Realizar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script src="/plugins/datatables/extensions/Responsive/js/dataTables.responsive.js"></script>
+
+<script src="https://cdn.datatables.net/plug-ins/1.12.1/dataRender/datetime.js"></script>
+<script src="/js/validaterequest.js"></script>
+<script src="/js/modalrealizadorequest.js"></script>
+<script src="/js/uppermodalrrequest.js"></script>
+
+<!-- page script -->
+<script>
+
+
+
+</script>
+

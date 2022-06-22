@@ -2730,22 +2730,22 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #007bff;
+  color: #720c33;
   background-color: transparent;
 }
 
-.btn-link:hover {
-  color: #0056b3;
+/* .btn-link:hover {
+  color: #da1e3d;
   text-decoration: none;
   background-color: transparent;
   border-color: transparent;
-}
+} */
 
-.btn-link:focus, .btn-link.focus {
+/* .btn-link:focus, .btn-link.focus {
   text-decoration: none;
   border-color: transparent;
   box-shadow: none;
-}
+} */
 
 .btn-link:disabled, .btn-link.disabled {
   color: #6c757d;

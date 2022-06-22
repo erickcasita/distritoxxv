@@ -50,6 +50,7 @@ const upload = multer({
         }
         cb("Error: Archivo debe ser un documento valido o una imagen valida");
     },
+  
     dest: path.join(__dirname, 'public/uploads/')
 });
 const uploadMultiple = upload.fields([{ name: 'credencial', maxCount: 1 }, { name: 'foto', maxCount: 10 }])
@@ -76,6 +77,7 @@ app.use((req, res, next) => {
     app.locals.success = req.flash('success');
     app.locals.error = req.flash('error');
     app.locals.showreportmanage = req.flash('showreportmanage');
+    app.locals.showreportrequest = req.flash('showreportrequest');
     //app.locals.showreportservicesgeneral = req.flash('showreportservicesgeneral');
     //app.locals.showreportserviceschecklist = req.flash('showreportserviceschecklist');
     app.locals.user = req.user;

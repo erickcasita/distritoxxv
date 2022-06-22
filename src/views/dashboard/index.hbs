@@ -1,0 +1,155 @@
+<script src="/plugins/chartjs-old/Chart.min.js"></script>
+</br>
+<!-- PAGE SCRIPTS -->
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fa fa-user"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Membresía</span>
+                        <span class="info-box-number">
+                            {{#each totalafiliaciones}}
+                                {{'totalafiliaciones'}}
+                            {{/each}} 
+                            
+                           
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-calendar"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Solicitudes Pendientes</span>
+                        <span class="info-box-number"> {{#each totalsolicitudesp}}
+                                {{'totalsolicitudesp'}}
+                            {{/each}} </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fa fa-calendar-check-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Solicitudes Realizadas</span>
+                        <span class="info-box-number">{{#each totalsolicitudesr}}
+                                {{'totalsolicitudesr'}}
+                            {{/each}} </span></span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-users"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Usuarios</span>
+                        <span class="info-box-number">{{#each totalusuarios}}
+                                {{'totalusuarios'}}
+                            {{/each}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+    <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Estadística</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="chart-responsive">
+                      <canvas id="pieChart" height="300"></canvas>
+                    </div>
+                    <!-- ./chart-responsive -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-md-4">
+                    <ul class="chart-legend clearfix">
+                      <li><i class="fa fa-circle-o text-danger"></i> San Andrés Tuxtla</li>
+                      <li><i class="fa fa-circle-o text-success"></i> Catemaco</li>
+                      <li><i class="fa fa-circle-o text-warning"></i> Hueyapan de Ocampo</li>
+
+                    </ul>
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer bg-white p-0">
+                {{#each totales}}
+                <ul class="nav nav-pills flex-column">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      San Andrés Tuxtla
+                      <span class="float-right text-danger">
+                        <i class="fa fa-arrow-down text-sm"></i>
+                        {{'totalsat'}}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Catemaco
+                      <span class="float-right text-success">
+                        <i class="fa fa-arrow-up text-sm"></i>  {{'totalcat'}}
+                      </span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      Hueyapan de Ocampo
+                      <span class="float-right text-warning">
+                        <i class="fa fa-arrow-left text-sm"></i>  {{'totalhue'}}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+                 {{/each}}
+              </div>
+              <!-- /.footer -->
+            </div>
+</section>
+<!-- ChartJS 1.0.2 -->
+<!-- SparkLine -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/dist/js/pages/dashboard2.js"></script>
+<!-- ChartJS 1.0.2 -->
+
+
+
+
+

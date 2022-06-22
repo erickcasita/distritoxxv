@@ -1,91 +1,162 @@
 <div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Búsqueda de Personas</h1>
-            </div><!-- /.col -->
-       <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/dashboard/">Inicio</a></li>
-              <li class="breadcrumb-item active">Búsqueda</li>
-            </ol>
-          </div>
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Búsqueda de Personas</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="/dashboard/">Inicio</a></li>
+          <li class="breadcrumb-item active">Búsqueda</li>
+        </ol>
+      </div>
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
 </div>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-12">
+  <div class="row">
+    <div class="col-12">
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Catálogo</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <table id="example1" class="table table-striped table-bordered dataTable display">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NOMBRE(S) COMPLETO</th>
-                                <th>MUNICIPIO</th>
-                                <th>CARGO</th>
-                                <th>SECCION ELECTORAL</th>
-                                <th></th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each search}}
-                            <tr>
-                                <td>{{'clvpersona'}}</td>
-                                <td>{{'nombre'}} {{'apellidop'}} {{'apellidom'}}</td>
-                                <td>{{'nombremunicipio'}}</td>
-                                <td>{{'nombrecargo'}}</td>
-                                <td>{{'seccelectoral'}}</td>
-                                <td align="center"><a href="/dashboard/showprofile/{{{'clvpersona'}}}"  class="">
-                                    <i class="search fa fa-user"></i>
-                                </a></td>
-                            </tr>
-                            {{/each}}
-
-
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Catálogo</h3>
         </div>
-        <!-- /.col -->
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-striped table-bordered dataTable display">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NOMBRE(S) COMPLETO</th>
+                <th>MUNICIPIO</th>
+                <th>CARGO</th>
+                <th>SECCION ELECTORAL</th>
+                <th></th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {{#each search}}
+              <tr>
+                <td id="idcliente">{{'clvpersona'}}</td>
+                <td>{{'nombre'}} {{'apellidop'}} {{'apellidom'}}</td>
+                <td>{{'nombremunicipio'}}</td>
+                <td>{{'nombrecargo'}}</td>
+                <td>{{'seccelectoral'}}</td>
+                <td align="center"><a href="/dashboard/showprofile/{{{'clvpersona'}}}" class="">
+                    <i class="search fa fa-user "></i>
+                  </a></td>
+                <td align="center"> <button type="button" id="newrequest" class="btn btn-primary btn-link btn-sm"
+                    data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus-square"
+                      aria-hidden="true"></i></button></td>
+              </tr>
+              {{/each}}
+
+
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
-    <!-- /.row -->
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
 </section>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Solicitud</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" action="/dashboard/newaddrequest" method="post" enctype="multipart/form-data">
+
+          <div class="row g-3">
+            <div class="mb-3 col-md-4">
+              <div class="form-group">
+                <label for="idpersona" class="col-form-label">ID:</label>
+                <input type="text" class="form-control" id="idpersona" name="idpersona">
+
+              </div>
+            </div>
+            <div class="mb-3 col-md-4">
+              <div class="form-group">
+                <label for="nombrecargo" class="col-form-label">CARGO:</label>
+                <input type="text" class="form-control" id="nombrecargo">
+
+              </div>
+            </div>
+            <div class="mb-3 col-md-4">
+              <div class="form-group">
+                <label for="fecha" class="col-form-label">FECHA SOLICITUD:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="nombre" class="col-form-label">NOMBRE COMPLETO:</label>
+            <input type="text" class="form-control" id="nombre">
+          </div>
+          <div class="form-group">
+            <label for="solicitud" class="col-form-label">SOLICITUD:</label>
+            <input type="text" class="form-control" id="solicitud" name="solicitud">
+          </div>
+          <div class="form-group">
+            <label for="credencial" class="col-form-label">ARCHIVO SOLICITUD:</label>
+            <input type="file" class="form-control-file" id="credencial" name="credencial">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" id="guardarequest" class="btn btn-primary">Guardar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!-- DataTables -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/plugins/datatables/dataTables.bootstrap4.js"></script>
 <script src="/plugins/datatables/extensions/Responsive/js/dataTables.responsive.js"></script>
+<script src="/js/modalrequest.js"></script>
+<script src="/js/validatemodalrequest.js"></script>
+<script src="/js/uppermodalrequest.js"></script>
 <!-- page script -->
 <script>
 
-    $('#example1').DataTable({
-         "language": {
-            "lengthMenu": "Display _MENU_ records per page",
-            "zeroRecords": "Sin registros...",
-            "info": "Mostrando página... _PAGE_ de _PAGES_",
-            "infoEmpty": "Sin entradas disponibles",
-            "infoFiltered": "(filtrando from _MAX_ total records)"
-        },
-        "responsive": true,
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-    });
+  $('#example1').DataTable({
+    "language": {
+      "lengthMenu": "Display _MENU_ records per page",
+      "zeroRecords": "Sin registros...",
+      "info": "Mostrando página... _PAGE_ de _PAGES_",
+      "infoEmpty": "Sin entradas disponibles",
+      "infoFiltered": "(filtrando from _MAX_ total records)"
+    },
+    "responsive": true,
+    "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false
+  });
 
 </script>
 

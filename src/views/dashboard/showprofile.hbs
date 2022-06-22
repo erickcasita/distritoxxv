@@ -107,11 +107,11 @@
               {{/each}} CÓDIGO POSTAL: {{#each card1}}
               {{'cdgpostal'}}
               {{/each}}</p>
-             <hr>
-             <strong><i class="fa fa fa-file mr-1"></i><a  Target="_blank" href="{{#each card1 }}
+            <hr>
+            <strong><i class="fa fa fa-file mr-1"></i><a Target="_blank" href="{{#each card1 }}
               {{'pathcredencial'}}
               {{/each }}
-             ">IDENTIFICACIÓN OFICIAL</a></strong>  
+             ">IDENTIFICACIÓN OFICIAL</a></strong>
           </div>
           <!-- /.card-body -->
         </div>
@@ -133,12 +133,26 @@
 
               <!-- /.tab-pane -->
               <div class="active tab-pane" id="timeline">
-                <!-- The timeline -->
-                <ul class="timeline timeline-inverse">
+                {{#each rquest}}
+                <div id="accordion">
+                  <div class="card">
+                    <div class="card-header" id="{{'clvsolicitud'}}">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{'clvsolicitud'}}"
+                          aria-expanded="false" aria-controls="collapse{{'clvsolicitud'}}">
+                          
+                           SOLICITUD ENTREGADA: {{date rfecha}} 
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="collapse{{'clvsolicitud'}}" class="collapse " aria-labelledby="{{'clvsolicitud'}}" data-parent="#accordion">
+                      <div class="card-body">
+                          <ul class="timeline timeline-inverse">
                   <!-- timeline time label -->
                   <li class="time-label">
                     <span class="bg-danger">
-                      10 Feb. 2014
+                    {{date rfecha}}
                     </span>
                   </li>
                   <!-- /.timeline-label -->
@@ -147,15 +161,12 @@
                     <i class="fa fa-pencil bg-primary"></i>
 
                     <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                      <span class="time"><i class="fa fa-clock-o"></i>  {{timeago rfecha}}</span>
 
-                      <h3 class="timeline-header">Título Apoyo</h3>
+                      <h3 class="timeline-header">{{'rtitulo'}}</h3>
 
                       <div class="timeline-body">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                        quora plaxo ideeli hulu weebly balihoo...
+                        {{'rdescripcion'}}
                       </div>
                     </div>
                   </li>
@@ -168,31 +179,17 @@
                     <i class="fa fa-camera bg-warning"></i>
 
                     <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+                      <span class="time"><i class="fa fa-clock-o"></i>  {{timeago rfecha}}</span>
 
-                      <h3 class="timeline-header">Fotografías</h3>
+                      <h3 class="timeline-header">Fotografía</h3>
 
                       <div class="timeline-body">
                         <div class="row mb-3">
                           <div class="col-sm-6">
-                            <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                            <img class="img-fluid" src="{{'rpathfoto'}}" alt="Photo">
                           </div>
                           <!-- /.col -->
-                          <div class="col-sm-6">
-                            <div class="row">
-                              <div class="col-sm-6">
-                                <img class="img-fluid mb-3" src="../../dist/img/photo2.png" alt="Photo">
-                                <img class="img-fluid" src="../../dist/img/photo3.jpg" alt="Photo">
-                              </div>
-                              <!-- /.col -->
-                              <div class="col-sm-6">
-                                <img class="img-fluid mb-3" src="../../dist/img/photo4.jpg" alt="Photo">
-                                <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
-                              </div>
-                              <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                          </div>
+                      
                           <!-- /.col -->
                         </div>
                       </div>
@@ -202,12 +199,12 @@
                     <i class="fa fa-comments bg-primary"></i>
 
                     <div class="timeline-item">
-                      <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                      <span class="time"><i class="fa fa-clock-o"></i>  {{timeago rfecha}}</span>
 
                       <h3 class="timeline-header">Comentario</h3>
 
                       <div class="timeline-body">
-                        <span class="description">Este es el primer apoyo</span>
+                        <span class="description">{{'rcomentario'}}</span>
                       </div>
                     </div>
                   </li>
@@ -222,6 +219,15 @@
                     <i class="fa fa-clock-o bg-gray"></i>
                   </li>
                 </ul>
+                      </div>
+
+                      
+                    </div>
+                    
+                  </div>
+    
+                </div>
+                {{/each }}
               </div>
 
 
@@ -317,7 +323,7 @@
                                   {{#each cargo}}
                                   <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
                                   {{/each}}
-                                
+
                                   {{#each listacargos}}
                                   <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
                                   {{/each}}
@@ -396,9 +402,11 @@
                           <div class="form-group">
                             <label for="grupo">Coordinador o Rutero:</label>
                             <select name="grupo" class="form-control form-select" id="grupo" name="grupo">
-                                {{#each cordis}}
-                                    <option value={{'clvpersona'}}>{{'nombre'}} {{'apellidop'}} {{'apellidom'}} --- CARGO: {{'nombrecargo'}} --- MUNICIPIO: {{'nombremunicipio'}} --- COLONIA: {{'nombrecolonias'}} --- SECCION ELECTORAL: {{'seccelectoral'}}</option>
-                                {{/each }}
+                              {{#each cordis}}
+                              <option value={{'clvpersona'}}>{{'nombre'}} {{'apellidop'}} {{'apellidom'}} --- CARGO:
+                                {{'nombrecargo'}} --- MUNICIPIO: {{'nombremunicipio'}} --- COLONIA: {{'nombrecolonias'}}
+                                --- SECCION ELECTORAL: {{'seccelectoral'}}</option>
+                              {{/each }}
                             </select>
                           </div>
                           <div class="form-group">

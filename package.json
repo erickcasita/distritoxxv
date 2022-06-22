@@ -25,6 +25,7 @@
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0",
+    "timeago.js": "^4.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
