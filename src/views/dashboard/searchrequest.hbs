@@ -38,7 +38,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
-
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -51,15 +51,18 @@
                 <td>{{'nombremunicipio'}}</td>
                 <td>{{'fechasoli'}}</td>
                 <td><span class="badge badge-primary">Pendiente</span></td>
-                <td align="center"><a Target="_blank" href="{{'pathsoli'}}" class="">
+                <td align="center"><a id="" Target="_blank" href="#" class="">
                     <i class="search fa fa-file-pdf-o"></i>
                   </a></td>
                 <td aling="center"><button type="button" class="btn btn-outline-danger btncancelarrequest" >Cancelar</button></td>
                 <td aling="center"><button type="button" class="btn btn-outline-success btnrealizarrrequest" id="realirequest" data-toggle="modal" data-target="#exampleModal">Realizar</button></td>
-                
+                <td aling="center"><button type="button" class="btn btn-outline-info btnrechazarrequest" id="declinadorrequest" data-toggle="modal" data-target="#ModalDeclinar">Declinar</button></td>
               {{/each}}
 
           </table>
+         
+
+
         </div>
         <!-- /.card-body -->
       </div>
@@ -68,7 +71,12 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+  
 </section>
+
+<!-- Large modal -->
+
+
 <!-- DataTables -->
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -88,7 +96,7 @@
           <div class="row g-2">
                <div class="mb-3 col-md-6">
               <div class="form-group">
-                <label for="idpersona" class="col-form-label">ID SOLICITUD:</label>
+                <label for="idrequest" class="col-form-label">ID SOLICITUD:</label>
                 <input type="text" class="form-control" id="idrequest" name="idrequest">
 
               </div>
@@ -138,6 +146,66 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="ModalDeclinar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Declinar Solicitud</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" action="/dashboard/newdeclinedrequest" method="post" enctype="multipart/form-data">
+
+          <div class="row g-2">
+               <div class="mb-3 col-md-6">
+              <div class="form-group">
+                <label for="idrequestdeclinado" class="col-form-label">ID SOLICITUD:</label>
+                <input type="text" class="form-control" id="idrequestdeclinado" name="idrequestdeclinado">
+
+              </div>
+            </div>
+            <div class="mb-3 col-md-6">
+              <div class="form-group">
+                <label for="idpersona" class="col-form-label">ID CIUDADANO:</label>
+                <input type="text" class="form-control" id="idpersonadeclinado" name="idpersonadeclinado">
+
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="form-group">
+            <label for="nombre" class="col-form-label">NOMBRE COMPLETO:</label>
+            <input type="text" class="form-control" id="nombredeclinado">
+          </div>
+       
+           <div class="form-group">
+            <label for="descripcionapoyo" class="col-form-label">MOTIVO:</label>
+            <textarea class="form-control" id="motivodeclinado" rows="3" name="motivodeclinado"></textarea>
+            
+          </div>
+        
+     
+     
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" id="gendeclinado"  class="btn btn-primary">Declinar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/datatables/jquery.dataTables.js"></script>
@@ -148,11 +216,6 @@
 <script src="/js/validaterequest.js"></script>
 <script src="/js/modalrealizadorequest.js"></script>
 <script src="/js/uppermodalrrequest.js"></script>
-
+<script src="/js/modaldeclinadorequest.js"></script>
 <!-- page script -->
-<script>
-
-
-
-</script>
 

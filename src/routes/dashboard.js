@@ -213,7 +213,7 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
     let contador1, contador2
     contador2 = 6;
     contador1 = 1;
-
+   
     let user = req.user.username;
     var f = new Date();
     var mes = f.getMonth() + 1;
@@ -221,9 +221,9 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
     var hora_actual = f.getHours() + ":" + f.getMinutes() + ":" + f.getSeconds();
     if (estado === "0") {
         if (municipio === "0") {
-            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadoreali FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ? AND (solicitudes.estadoreali = 0 ) ', [fecha1, fecha2]);
+            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadoreali FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ? AND (solicitudes.estadosoli = 0 AND solicitudes.estadoreali = 0 ) ', [fecha1, fecha2]);
         } else {
-            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadoreali FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ?  AND solicitudes.clvmunicipio = ?  AND (solicitudes.estadoreali = 0 ) ', [fecha1, fecha2, municipio]);
+            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadoreali FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ?  AND solicitudes.clvmunicipio = ?  AND (solicitudes.estadosoli = 0 AND solicitudes.estadoreali = 0 ) ', [fecha1, fecha2, municipio]);
         }
         //Libro de Trabajo
         var wb = new xl.Workbook();
@@ -271,25 +271,30 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
         for (let index = 0; index < fila.length; index++) {
             const element = fila[index];
             let cad
-
-            if (index != 8) {
-                cad = element.toString();
-
-            } else {
+            
+            if (contador1 == 9 ) {
+               
                 cad = element.toISOString();
+                
+                
+            } else {
+                cad = element.toString();
+               
             }
 
             ws.cell(contador2, contador1).string(cad);
             contador1++;
-            if (contador1 == 12) {
+            if (contador1 == 11) {
                 contador2++;
                 contador1 = 1;
+                
             }
+           
 
-
+       
         }
-
-
+        
+        
         wb.write(pathExcel);
     }
 
@@ -300,7 +305,7 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
         }else{
             qr = await pool.query('SELECT rsolicitudes.clvrsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, rsolicitudes.rfecha, solicitudes.estadoreali FROM rsolicitudes INNER JOIN afiliaciones ON rsolicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN municipios ON rsolicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON rsolicitudes.clvcolonias = colonias.clvcolonias INNER JOIN solicitudes ON rsolicitudes.clvsolicitud = solicitudes.clvsolicitud WHERE rsolicitudes.rfecha BETWEEN ? AND ? AND solicitudes.clvmunicipio = ? AND (solicitudes.estadoreali = 1 )', [fecha1, fecha2, municipio]);
         }
-        
+        console.log(qr);
         //Libro de Trabajo
         var wb = new xl.Workbook();
         //Hoja de Trabajo
@@ -309,7 +314,7 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
         ws.cell(1, 10).string("Usuario:");
         ws.cell(1, 11).string(user);
 
-        ws.cell(2, 1).string("REPORTE DE SOLICITUDES PENDIENTES DEL " + fecha1 + " AL  " + fecha2);
+        ws.cell(2, 1).string("REPORTE DE SOLICITUDES REALIZADAS DEL " + fecha1 + " AL  " + fecha2);
         ws.cell(2, 10).string("Fecha y Hora:");
         ws.cell(2, 11).string(fecha + " " + hora_actual);
         ws.cell(5, 1).string("ID SOLICITUD");
@@ -321,8 +326,8 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
         ws.cell(5, 7).string("COLONIA");
         ws.cell(5, 8).string("SOLICITUD");
         ws.cell(5, 9).string("FECHA SOLICITUD");
-        ws.cell(5, 9).string("FECHA REALIZADO");
-        ws.cell(5, 10).string("ESTADO SOLICITUD");
+        ws.cell(5, 10).string("FECHA REALIZADO");
+        ws.cell(5, 11).string("ESTADO SOLICITUD");
 
         const pathExcel = path.join('src/public/reportes/', 'excel', 'reporterequest.xlsx');
         var fila = new Array();
@@ -345,16 +350,19 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
 
         });
 
-
+       
         for (let index = 0; index < fila.length; index++) {
             const element = fila[index];
             let cad
 
-            if (index != 8 || index != 9) {
-                cad = element.toString();
-
-            } else {
+            if (contador1 == 9 || contador1 == 10 ) {
+               
                 cad = element.toISOString();
+                
+                
+            } else {
+                cad = element.toString();
+               
             }
 
             ws.cell(contador2, contador1).string(cad);
@@ -371,7 +379,82 @@ router.post('/newreportrequest', isLoggedIn, async (req, res) => {
 
     }
 
+    if (estado === "2") {
+        if (municipio === "0") {
+            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadosoli, solicitudes.motivodecli FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ? AND (solicitudes.estadoreali = 0  AND solicitudes.estadosoli = 2) ', [fecha1, fecha2]);
+        } else {
+            qr = await pool.query('SELECT solicitudes.clvsolicitud, afiliaciones.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, colonias.nombrecolonias, solicitudes.qsolicita, solicitudes.fechasoli, solicitudes.estadosoli, solicitudes.motivodecli FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN  municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN colonias ON solicitudes.clvcolonias  = colonias.clvcolonias WHERE  solicitudes.fechasoli  BETWEEN ? AND ?  AND solicitudes.clvmunicipio = ?  AND (solicitudes.estadoreali = 0 AND solicitudes.estadosoli = 2) ', [fecha1, fecha2, municipio]);
+        }
+        //Libro de Trabajo
+        var wb = new xl.Workbook();
+        //Hoja de Trabajo
+        var ws = wb.addWorksheet('Reporte');
+        ws.cell(1, 1).string("RAFAEL GUSTAVO FARARONI MAGAÑA DIP. DISTRITO XXV");
+        ws.cell(1, 10).string("Usuario:");
+        ws.cell(1, 11).string(user);
 
+        ws.cell(2, 1).string("REPORTE DE SOLICITUDES DECLINADAS DEL " + fecha1 + " AL  " + fecha2);
+        ws.cell(2, 10).string("Fecha y Hora:");
+        ws.cell(2, 11).string(fecha + " " + hora_actual);
+        ws.cell(5, 1).string("ID SOLICITUD");
+        ws.cell(5, 2).string("ID CIUDADANO");
+        ws.cell(5, 3).string("NOMBRE");
+        ws.cell(5, 4).string("APELLIDO PATERNO");
+        ws.cell(5, 5).string("APELLIDO MATERNO");
+        ws.cell(5, 6).string("MUNICIPIO");
+        ws.cell(5, 7).string("COLONIA");
+        ws.cell(5, 8).string("SOLICITUD");
+        ws.cell(5, 9).string("FECHA SOLICITUD");
+        ws.cell(5, 10).string("ESTADO SOLICITUD");
+        ws.cell(5, 11).string("MOTIVO DECLINADO");
+        const pathExcel = path.join('src/public/reportes/', 'excel', 'reporterequest.xlsx');
+        var fila = new Array();
+        qr.forEach(element => {
+
+            fila.push(element['clvsolicitud']);
+            fila.push(element['clvpersona']);
+            fila.push(element['nombre']);
+            fila.push(element['apellidop']);
+            fila.push(element['apellidom']);
+            fila.push(element['nombremunicipio']);
+            fila.push(element['nombrecolonias']);
+            fila.push(element['qsolicita']);
+            fila.push(element['fechasoli']);
+            if (element['estadosoli'] === 2) {
+                fila.push("DECLINADA");
+            }
+            fila.push(element['motivodecli']);
+        });
+
+       
+
+        for (let index = 0; index < fila.length; index++) {
+            const element = fila[index];
+            let cad
+           
+            if (contador1 == 9  ) {
+                console.log(element);
+                cad = element.toISOString();
+                
+                
+            } else {
+                cad = element.toString();
+               
+            }
+
+            ws.cell(contador2, contador1).string(cad);
+            contador1++;
+            if (contador1 == 12) {
+                contador2++;
+                contador1 = 1;
+            }
+
+
+        }
+
+
+        wb.write(pathExcel);
+    }
 
 
     req.flash('showreportrequest', '¡El reporte se ha generado correctamente!');
@@ -636,7 +719,8 @@ router.post('/newaddrequest', isLoggedIn, async (req, res) => {
         pathsoli: path,
         estadosoli: 0,
         estadoreali: 0,
-        useralta : req.user.username 
+        useralta : req.user.username,
+        motivodecli: ''
 
 
     }
@@ -692,11 +776,22 @@ router.post('/newrealirequest', isLoggedIn, async (req, res) => {
      req.flash('success', '¡Se ha realizado la solicitud!');
      res.redirect('/dashboard/searchrequest/');
 });
+router.post('/newdeclinedrequest', isLoggedIn, async (req, res) => {
+    const {idrequestdeclinado, motivodeclinado} = req.body;
+
+    const queryid = await pool.query('UPDATE solicitudes SET estadosoli = 2, motivodecli = ? WHERE clvsolicitud = ?',[motivodeclinado,idrequestdeclinado]);
+
+
+    req.flash('success', '¡Se ha declinado la solicitud!');
+    res.redirect('/dashboard/searchrequest/');
+
+
+
+});
 router.get('/searchrequest', isLoggedIn, async (req, res) => {
 
-    const soli = await pool.query('SELECT solicitudes.clvsolicitud, solicitudes.pathsoli, solicitudes.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, cargos.nombrecargo, solicitudes.qsolicita, solicitudes.fechasoli FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN cargos   ON solicitudes.clvcargos = cargos.clvcargos WHERE estadoreali = 0');
-    //const search = await pool.query('select afiliaciones.clvpersona,afiliaciones.nombre,afiliaciones.apellidop,afiliaciones.apellidom,municipios.nombremunicipio,cargos.nombrecargo, seccelectoral from afiliaciones INNER JOIN municipios on afiliaciones.clvmunicipio = municipios.clvmunicipio INNER JOIN cargos on afiliaciones.clvcargos = cargos.clvcargos');
-   
+    const soli = await pool.query('SELECT solicitudes.clvsolicitud, solicitudes.pathsoli, solicitudes.clvpersona, afiliaciones.nombre, afiliaciones.apellidop, afiliaciones.apellidom, municipios.nombremunicipio, cargos.nombrecargo, solicitudes.qsolicita, solicitudes.fechasoli FROM solicitudes INNER JOIN afiliaciones ON solicitudes.clvpersona = afiliaciones.clvpersona INNER JOIN municipios ON  solicitudes.clvmunicipio = municipios.clvmunicipio INNER JOIN cargos   ON solicitudes.clvcargos = cargos.clvcargos WHERE (solicitudes.estadosoli = 0 AND solicitudes.estadoreali = 0)');
+
     res.render('dashboard/searchrequest',{soli});
 });
 
@@ -704,7 +799,7 @@ router.get('/searchrequest', isLoggedIn, async (req, res) => {
 router.post('/cancelrequest', isLoggedIn, async (req, res) => {
     const { clvsolicitud } = req.body;
     let tmpcargos  = { data:true}
-    await pool.query('UPDATE solicitudes SET estadoreali = 1 WHERE clvsolicitud = ?', clvsolicitud);
+    await pool.query('UPDATE solicitudes SET  estadosoli = 1 WHERE clvsolicitud = ?', clvsolicitud);
    res.send(tmpcargos);
     
 });
@@ -716,11 +811,24 @@ router.post('/analyticsafiliaciones', isLoggedIn, async (req, res) => {
     let tmptotales = [];
     totales.forEach(element => {
         var fila = new Array();
+        let suma =  element['totalsat'] + element['totalcat'] +  element['totalhue'];
 
-        fila.push(element['totalsat']);
-        fila.push(element['totalcat']);
-        fila.push(element['totalhue']);
-      
+        //Sacando porcentaje
+
+        let p1 = (element['totalsat'] * 100 ) / suma;
+        let p2 = (element['totalcat'] * 100 ) / suma;
+        let p3 = (element['totalhue'] * 100 ) / suma;
+        
+        //Cortando a 2 decimales
+
+        p1 = p1.toFixed(2);
+        p2 = p2.toFixed(2);
+        p3 = p3.toFixed(2);
+
+        //Agregando al arreglo
+        fila.push(p1);
+        fila.push(p2);
+        fila.push(p3);
         tmptotales.push(fila);
 
     });

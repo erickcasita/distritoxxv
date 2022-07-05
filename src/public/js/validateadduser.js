@@ -13,7 +13,8 @@ $(document).ready(function(){
         let numtel = $('#numtel').val();
         let direccion = $('#direccion').val();
 
-        if(nombre === '' || apellidop === '' || apellidom === '' || cargo === ''|| municipios === ''|| colonia === ''|| cdgpostal === ''|| numtel === ''|| seccelectoral === ''|| direccion === ''){
+  
+        if(nombre == '' || apellidop == '' || apellidom == '' || cargo == '0'|| municipios == '0'|| colonia == ''|| cdgpostal == ''){
             Swal.fire(
                 'Atención!',
                 'Algunos campos son requeridos',

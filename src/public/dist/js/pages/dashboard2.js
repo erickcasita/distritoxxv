@@ -47,19 +47,19 @@ $(document).ready(function () {
       value    : element[0],
       color    : '#dc3545',
       highlight: '#dc3545',
-      label    : 'San Andrés Tuxtla'
+      label    : '% San Andrés Tuxtla'
     },
     {
-      value    : 20,
+      value    : element[1],
       color    : '#28a745',
       highlight: '#28a745',
-      label    : 'Catemaco'
+      label    : '% Catemaco'
     },
     {
-      value    :  10,
+      value    :  element[2],
       color    : '#ffc107',
       highlight: '#ffc107',
-      label    : 'Hueyapan de Ocampo'
+      label    : '% Hueyapan de Ocampo'
     },
    
   ]
@@ -87,7 +87,7 @@ $(document).ready(function () {
     //String - A legend template
     legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
     //String - A tooltip template
-    tooltipTemplate      : '<%=value %> <%=label%> Personas'
+    tooltipTemplate      : '<%=value %> <%=label%> '
   }
   //Create pie or douhnut chart
   // You can switch between pie and douhnut using the method below.

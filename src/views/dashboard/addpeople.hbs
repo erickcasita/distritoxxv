@@ -43,7 +43,7 @@
                                         <label for="cargo">Cargo:</label>
                                        
                                         <select  name="cargo" class="form-control form-select" id="cargo">
-                                            <option value=" "> </option>
+                                            <option value="0"></option>
                                             {{#each cargos}}
                                             <option value={{'clvcargos'}}>{{'nombrecargo'}}</option>
                                             {{/each}} 
@@ -55,7 +55,7 @@
                                     <div class="form-group">
                                         <label for="municipio">Municipio:</label>
                                         <select name="municipio"class="form-control form-select" id="municipios">
-                                          <option value=" "> </option>
+                                          <option value="0"></option>
                                          {{#each municipios}}
                                             <option value={{'clvmunicipio'}}>{{'nombremunicipio'}}</option>
                                             {{/each}} 
